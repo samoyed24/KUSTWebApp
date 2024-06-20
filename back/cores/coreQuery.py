@@ -1,6 +1,5 @@
 import requests as _requests
-
-from utils import query
+from back.utils import query
 
 
 class Student:
@@ -20,8 +19,7 @@ class Student:
             raise ValueError(f"Login Failed")
 
     def get_grade(self) -> None:
-        self.result = query.get_grade(self.session)
-        print(self.result)
+        self.session, self.result = query.get_grade(self.session)
 
 
 if __name__ == '__main__':

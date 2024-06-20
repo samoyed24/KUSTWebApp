@@ -5,4 +5,11 @@
     <orderEntry type="jdk" jdkName="WebFA" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyNamespacePackagesService">
+    <option name="namespacePackageFolders">
+      <list>
+        <option value="$MODULE_DIR$/back" />
+      </list>
+    </option>
+  </component>
 </module>
