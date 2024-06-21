@@ -38,7 +38,7 @@ def login(username: str, password: str, session: requests.Session) -> Union[bool
     return status, s
 
 
-def get_grade(s: requests.Session) -> Union[requests.Session, pd.DataFrame]:
+def get_grade(s: requests.Session) -> Union[requests.Session, dict]:
     r = s.get('http://jwctsp.kmust.edu.cn/integration/for-std/best/grade/sheet')
     r.encoding = 'utf-8'
     soup2 = BeautifulSoup(r.text, 'html.parser')

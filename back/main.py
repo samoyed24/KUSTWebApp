@@ -1,22 +1,24 @@
 import sys, os
-from fastapi import FastAPI
+from fastapi import FastAPI, Body, Depends
+from typing import Annotated
+from fastapi.security import OAuth2PasswordBearer
 
 sys.path.append(os.path.abspath(os.path.dirname(os.path.dirname(__file__))))  # 解决导入问题，后续可以相应修改
-from back.models import *
-from cores import coreQuery
-from models import essential
-
-
+from back.models import essential
+from back.cores import coreQuery
+from back.config import Config
 
 app = FastAPI()
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Config.tokenURL)
+
 
 @app.get('/')
-async def root():
+def root():
     return {"message": "Hello World"}
 
 
-@app.post('/query/grade/')
-async def query_grade(student: essential.LoginModel):
+@app.post('/query/grade/', response_model=essential.GradeResponse)
+def query_grade(student: Annotated[essential.LoginModel, Body()]):
     try:
         s = coreQuery.Student(student.username, student.password)
     except ValueError as e:
@@ -24,3 +26,8 @@ async def query_grade(student: essential.LoginModel):
     else:
         s.get_grade()
         return {"code": 20000, "message": "OK", 'data': s.result}
+
+
+@app.get("/items/")
+def read_items(token: Annotated[str, Depends(oauth2_scheme)]):
+    return {"token": token}
