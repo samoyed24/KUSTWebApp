@@ -7,7 +7,11 @@ sys.path.append(os.path.abspath(os.path.dirname(os.path.dirname(__file__))))  # 
 from back.models import essential
 from back.cores import coreQuery
 from back.config import Config
+from back import sql
+from back.sql.models.userModels import *
+from back.sql.database import engine
 
+sql.database.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Config.tokenURL)
 
