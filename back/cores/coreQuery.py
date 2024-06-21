@@ -1,5 +1,10 @@
 import requests as _requests
 from back.utils import query
+from time import sleep
+
+
+class Config:
+    MAX_RETRIES = 3
 
 
 class Student:
@@ -19,7 +24,16 @@ class Student:
             raise ValueError(f"Login Failed")
 
     def get_grade(self) -> None:
-        self.session, self.result = query.get_grade(self.session)
+        retries = 0
+        try:
+            self.session, self.result = query.get_grade(self.session)
+        except AttributeError:
+            if retries < Config.MAX_RETRIES:
+                sleep(20)
+                retries += 1
+                self.session, self.result = query.get_grade(self.session)
+            else:
+                raise ConnectionRefusedError('Server too busy')
 
 
 if __name__ == '__main__':

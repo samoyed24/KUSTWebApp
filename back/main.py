@@ -6,9 +6,8 @@ from back.models import *
 from cores import coreQuery
 from models import essential
 
-
-
 app = FastAPI()
+
 
 @app.get('/')
 async def root():
@@ -16,7 +15,7 @@ async def root():
 
 
 @app.post('/query/grade/')
-async def query_grade(student: essential.LoginModel):
+def query_grade(student: essential.LoginModel):
     try:
         s = coreQuery.Student(student.username, student.password)
     except ValueError as e:
