@@ -8,7 +8,7 @@ class UserOperations:
         self.session = SessionLocal()
 
     def createUser(self, user: userSchemas.UserCreate) -> userModels.User:
-        user_created = userModels.User(**user.dict())
+        user_created = userModels.User(**user.model_dump())
         self.session.add(user_created)
         self.session.commit()
         self.session.refresh(user_created)

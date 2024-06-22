@@ -49,3 +49,13 @@ class Grade(Base):
     student_id: Mapped[int] = mapped_column(Integer, ForeignKey(Student.id), nullable=False)
 
     student: Mapped[Student] = relationship('Student', back_populates='grades')
+
+
+class EmailVerification(Base):
+    __tablename__ = 'EmailVerification'
+    __table_args__ = {'extend_existing': True}
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    email: Mapped[str] = mapped_column(String(255))
+    code: Mapped[str] = mapped_column(String(10))
+    created_time: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())

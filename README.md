@@ -6,3 +6,10 @@
 ### 启动前端：
 > 首次启动：npm install
 > 启动开发服务器np：npm run dev
+
+### alembic基本操作
+> 初始化 alembic init alembic
+> 
+> 生成迁移脚本 alembic revision --autogenerate -m (description)
+>
+> 执行迁移 alembic upgrade head
