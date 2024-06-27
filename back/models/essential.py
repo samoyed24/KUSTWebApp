@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 from typing import List
 
 
@@ -7,9 +7,12 @@ class LoginModel(BaseModel):
     password: str = Field(example="<PASSWORD>")
 
 
-class GradeResponse(BaseModel):
+class SuccessResponse(BaseModel):
     code: int = Field(example=20000, description="")
     message: str = Field(example="OK", description="")
+
+
+class GradeResponse(SuccessResponse):
     data: List[dict] = Field(example=[
         {
             "学期": "2022-2023-1",
@@ -25,3 +28,7 @@ class GradeResponse(BaseModel):
             "修读性质": "初修",
             "备注": "体育学院申请录入"
         }], description="")
+
+
+class RegisterEmailVerificationModel(BaseModel):
+    email: EmailStr = Field(example="samoyed24@qq.com", description="注册使用邮箱")

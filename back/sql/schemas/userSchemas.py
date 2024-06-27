@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 from pydantic import BaseModel
 
@@ -48,6 +49,25 @@ class User(UserBase):
     id: int
     create_time: str
     student: Student
+
+    class Config:
+        from_attributes = True
+
+
+class EmailVerificationBase(BaseModel):
+    email: str
+
+
+class EmailVerificationAction(EmailVerificationBase):
+    code: str
+
+    class Config:
+        from_attributes = True
+
+
+class EmailVerificationSelect(EmailVerificationAction):
+    id: int
+    create_time: datetime
 
     class Config:
         from_attributes = True

@@ -16,11 +16,6 @@ app = FastAPI()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=Config.tokenURL)
 
 
-@app.get('/')
-def root():
-    return {"message": "Hello World"}
-
-
 @app.post('/query/grade/', response_model=essential.GradeResponse)
 def query_grade(student: Annotated[essential.LoginModel, Body()]):
     try:
@@ -32,6 +27,6 @@ def query_grade(student: Annotated[essential.LoginModel, Body()]):
         return {"code": 20000, "message": "OK", 'data': s.result}
 
 
-@app.get("/items/")
-def read_items(token: Annotated[str, Depends(oauth2_scheme)]):
-    return {"token": token}
+@app.post('/query/register/email-verification', response_model=essential.SuccessResponse)
+def student_register_email(student: Annotated[essential.RegisterEmailVerificationModel, Body()]):
+    pass
