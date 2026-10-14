@@ -5,7 +5,7 @@
 
 ### 启动前端：
 > 首次启动：npm install
-> 启动开发服务器np：npm run dev
+> 启动开发服务器：npm run dev
 
 ### alembic基本操作
 > 初始化 alembic init alembic
